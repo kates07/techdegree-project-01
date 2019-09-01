@@ -1,6 +1,6 @@
 /******************************************
 Treehouse FSJS Techdegree:
-project 1 - A Random Quote Generator
+Project 1 - Random Quote Generator
 ******************************************/
 
 const quotes = [
@@ -35,12 +35,11 @@ let currentQuote = -1;
 
 /**
  * Get random number
- * @param {Number} max 
+ * @param {Number} maxNumber 
  */
-function getRandomNumber(max){
-  return Math.floor(Math.random() * max);
+function getRandomNumber(maxNumber){
+  return Math.floor(Math.random() * maxNumber);
 }
-
 
 /**
  * Get random quote from quotes array
@@ -83,7 +82,6 @@ function getRandomColor(){
   return `rgb(${getRandomNumber(256)}, ${getRandomNumber(256)}, ${getRandomNumber(256)})`;
 }
 
-
 /**
  * Display quote on page
  */
@@ -123,4 +121,3 @@ setInterval(printQuote, 3000);
 
 // Display first random quote
 printQuote();
-
