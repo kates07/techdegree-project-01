@@ -11,7 +11,8 @@ const quotes = [
   },
   {
     quote: 'Divide each difficulty into as many parts as is feasible and necessary to resolve it.',
-    source: 'Rene Descartes'
+    source: 'Rene Descartes',
+    tags: 'life, philisophy'
   },
   {
     quote: 'It is good to dream, but it is better to dream and work. Faith is mighty, but action with faith is mightier. Desiring is helpful, but work and desire are invincible.',
@@ -20,30 +21,63 @@ const quotes = [
   },
   {
     quote: 'If ye have faith as a grain of mustard seed, nothing shall be impossible unto you.',
-    source: 'Matthew 17:20'
+    source: 'Matthew 17:20',
+    tags: 'religion'
   },
   {
     quote: 'You are never too old to set another goal or to dream a NEW DREAM.',
     source: 'C.S. Lewis',
     citation: 'Chicken Soup for the Soul',
     year: '1993',
-    tags: 'philosophy'    
+    tags: 'philosophy'
   }
 ];
-
 let currentQuote = -1;
 
+// Display first random quote
+printQuote();
+
+// Auto display quotes with delay of 3000ms
+setInterval(printQuote, 3000);
+
+// Change quote on 'loadQuote' button click
+document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+
+
 /**
- * Get random number
- * @param {Number} maxNumber 
+ * Display quote on page
  */
-function getRandomNumber(maxNumber){
-  return Math.floor(Math.random() * maxNumber);
+function printQuote(){
+  // generate random quote
+  let randomQuote = getRandomQuote(quotes);
+
+  // create quote HTML
+  let displayedQuote = '';
+
+  displayedQuote += `<p class="quote">${randomQuote.quote}</p>`;
+  displayedQuote += `<p class="source">${randomQuote.source}`;
+
+  if(randomQuote.citation){
+    displayedQuote += `<span class="citation">${randomQuote.citation}</span>`;
+  }
+  if(randomQuote.year){
+    displayedQuote += `<span class="year">${randomQuote.year}</span>`;
+  }
+  if(randomQuote.tags){
+    displayedQuote += `<span class="tags">${randomQuote.tags}</span>`;
+  }
+  displayedQuote += `</p>`;
+
+  // add quote to page
+  document.querySelector('#quote-box').innerHTML = displayedQuote;
+
+  // change page background to random color
+  document.querySelector('body').style.background = getRandomColor();
 }
 
 /**
  * Get random quote from quotes array
- * @param {Array} quotes 
+ * @param {Array} quotes
  */
 function getRandomQuote(quotes){
   let randomNumber = null;
@@ -59,14 +93,22 @@ function getRandomQuote(quotes){
 
   // select random quote from quotes array
   const randomQuote = quotes[randomNumber];
-  
+
   // return it
   return randomQuote;
 }
 
 /**
+ * Get random number
+ * @param {Number} maxNumber
+ */
+function getRandomNumber(maxNumber){
+  return Math.floor(Math.random() * maxNumber);
+}
+
+/**
  * Check if selected quote is already displayed on screen
- * @param {Number} quoteNumber 
+ * @param {Number} quoteNumber
  */
 function isQuoteDisplayed(quoteNumber){
   if(quoteNumber === currentQuote){
@@ -81,43 +123,3 @@ function isQuoteDisplayed(quoteNumber){
 function getRandomColor(){
   return `rgb(${getRandomNumber(256)}, ${getRandomNumber(256)}, ${getRandomNumber(256)})`;
 }
-
-/**
- * Display quote on page
- */
-function printQuote(){
-  // generate random quote
-  let randomQuote = getRandomQuote(quotes);
-  
-  // create quote HTML
-  let displayedQuote = '';
-
-  displayedQuote += `<p class="quote">${randomQuote.quote}</p>`;
-  displayedQuote += `<p class="source">${randomQuote.source}`;
-  
-  if(randomQuote.citation){
-    displayedQuote += `<span class="citation">${randomQuote.citation}</span>`;
-  }
-  if(randomQuote.year){
-    displayedQuote += `<span class="year">${randomQuote.year}</span>`;
-  } 
-  if(randomQuote.tags){
-    displayedQuote += `<span class="tags">${randomQuote.tags}</span>`;
-  }    
-  displayedQuote += `</p>`;
-
-  // add quote to page
-  document.querySelector('#quote-box').innerHTML = displayedQuote;
-
-  // change page background to random color
-  document.querySelector('body').style.background = getRandomColor();
-}
-
-// Change quote on 'loadQuote' button click
-document.getElementById('loadQuote').addEventListener("click", printQuote, false);
-
-// Auto display quotes with delay of 3000ms
-setInterval(printQuote, 3000);
-
-// Display first random quote
-printQuote();
